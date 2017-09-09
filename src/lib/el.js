@@ -18,6 +18,8 @@
  * @returns   {React.element}
  */
 
+export const el = () => {}
+
 /**
  * selectorToNodeAndProps()
  * Takes a selector and returns an object to use in creating
@@ -32,3 +34,5 @@
  *
  * @returns   {NodeAndProps}
  */
+
+export const selectorToNodeAndProps = () => {}
