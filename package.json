@@ -2,10 +2,12 @@
   "name": "crossed",
   "version": "0.0.0",
   "scripts": {
+    "test": "ava src/**/*.spec.js -v",
     "start": "rollup -cw"
   },
   "author": "Tyler Torola <Tyler@TJT.Codes>",
   "devDependencies": {
+    "ava": "^0.22.0",
     "babel-core": "^6.26.0",
     "rollup": "^0.49.3",
     "rollup-plugin-babel": "^3.0.2"
