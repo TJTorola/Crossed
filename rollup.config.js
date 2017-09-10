@@ -4,7 +4,8 @@ export default {
   input: "src/main.js",
   output: {
     file: "build/crossed.js",
-    format: "iife"
+    format: "umd",
+    name: "crossed"
   },
   plugins: [babel()]
 }

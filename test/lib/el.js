@@ -1,5 +1,7 @@
 import test from "ava"
-import { selectorToNodeAndProps } from "./el.js"
+import { index } from "../../build/crossed.js"
+
+const { selectorToNodeAndProps, el } = index.lib.el
 
 test("selectorToNodeAndProps() returns correct structure", t => {
   t.deepEqual(selectorToNodeAndProps("div"), {

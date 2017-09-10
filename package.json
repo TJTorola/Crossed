@@ -2,7 +2,7 @@
   "name": "crossed",
   "version": "0.0.0",
   "scripts": {
-    "test": "ava src/**/*.spec.js -v",
+    "test": "ava test/**/*.js -v",
     "start": "rollup -cw"
   },
   "author": "Tyler Torola <Tyler@TJT.Codes>",
