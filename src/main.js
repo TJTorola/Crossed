@@ -1,13 +1,7 @@
-import * as libEl from "./lib/el.js"
+import lib from "./lib/index.js"
 
 export const index = {
-  app: {},
-  components: {},
-  config: {},
-  lib: {
-    el: libEl
-  },
-  store: {}
+  lib
 }
 
 export const run = () => {
