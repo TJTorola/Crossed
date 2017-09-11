@@ -7,15 +7,11 @@
  *
  * @return {Array}
  */
-const regexResults = regex => query => {
+export const regexResults = regex => query => {
   const takeResult = (execResult, results = []) =>
     execResult !== null
       ? takeResult(regex.exec(query), [...results, execResult[0]])
       : results
 
   return takeResult(regex.exec(query))
-}
-
-export default {
-  regexResults
 }
