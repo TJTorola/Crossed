@@ -11,7 +11,7 @@ import { regexResults } from "./utility.js"
  */
 
 /**
- * elem()
+ * el()
  * A wrapper around React.createElement to provide a more succient API
  *
  * @arg       {String}        selector
@@ -21,7 +21,7 @@ import { regexResults } from "./utility.js"
  * @returns   {React.element}
  */
 
-export const elem = () => {}
+export const el = () => {}
 
 /**
  * selectorToNodeAndProps()
