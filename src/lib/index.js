@@ -1,7 +1,7 @@
-import * as el from "./el.js"
+import * as react from "./react.js"
 import * as utility from "./utility.js"
 
 export default {
-  el,
+  react,
   utility
 }
