@@ -1,3 +1,6 @@
+import { VALID_ELEMENTS } from "../config/html.js"
+import { regexResults } from "./utility.js"
+
 /**
  * A selector is a string that is similar to css selectors. It allows us to
  * easily write nodes with unchanging classes and ids.
@@ -35,4 +38,23 @@ export const el = () => {}
  * @returns   {NodeAndProps}
  */
 
-export const selectorToNodeAndProps = () => {}
+export const selectorToNodeAndProps = selector => {
+  const node = VALID_ELEMENTS.find(element => selector.startsWith(element))
+  if (node === undefined) {
+    throw new Error(`
+      ${selector} is not a valid element.
+      See src/config/html.js - VALID_ELEMENTS.
+    `)
+  }
+
+  const idRegex = /(#[_a-zA-Z]+[_a-zA-Z0-9-]*)/g
+  const classRegex = /(\.[_a-zA-Z]+[_a-zA-Z0-9-]*)/g
+
+  return {
+    node,
+    props: {
+      className: regexResults(classRegex)(selector).map(str => str.slice(1)),
+      id: regexResults(idRegex)(selector).map(str => str.slice(1))
+    }
+  }
+}

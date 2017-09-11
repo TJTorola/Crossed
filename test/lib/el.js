@@ -13,6 +13,10 @@ test("selectorToNodeAndProps() returns correct structure", t => {
   })
 })
 
+test("selectorToNodeAndProps() throws when given an invalid element", t => {
+  t.throws(() => selectorToNodeAndProps("dev"))
+})
+
 test("selectorToNodeAndProps() adds a single class", t => {
   t.deepEqual(selectorToNodeAndProps("div.class"), {
     node: "div",
