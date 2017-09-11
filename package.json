@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "test": "ava 'test/**/*.js' -v",
+    "test-ff": "ava 'test/**/*.js' --fail-fast || true",
     "start": "rollup -cw"
   },
   "author": "Tyler Torola <Tyler@TJT.Codes>",
