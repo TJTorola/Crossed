@@ -1,10 +1,4 @@
-import lib from "./lib/index.js"
-
-export const index = {
-  lib
-}
-
-export const run = () => {
+export default () => {
   ReactDOM.render(
     React.createElement("div", null, "hello world"),
     document.getElementById("app")

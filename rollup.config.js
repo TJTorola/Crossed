@@ -1,7 +1,7 @@
 import babel from "rollup-plugin-babel"
 
 export default {
-  input: "src/main.js",
+  input: "src/index.js",
   output: {
     file: "build/crossed.js",
     format: "umd",

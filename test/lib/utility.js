@@ -1,7 +1,7 @@
 import test from "ava"
-import { index } from "../../build/crossed.js"
+import crossed from "../../build/crossed.js"
 
-const { regexResults } = index.lib.utility
+const { regexResults } = crossed.lib.utility
 
 test("regexResults() returns single element", t => {
   t.deepEqual(regexResults(/(abc)/g)("ahsabcajsd"), ["abc"])
