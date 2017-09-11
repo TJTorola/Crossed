@@ -1,9 +1,9 @@
 import test from "ava"
-import crossed from "../../build/crossed.js"
+import crossed from "../../../build/crossed.js"
 
-const { selectorToNodeAndProps, elem } = crossed.lib.react
+const { selectorToNodeAndProps } = crossed.lib.react
 
-test("selectorToNodeAndProps() returns correct structure", t => {
+test("it returns correct structure", t => {
   t.deepEqual(selectorToNodeAndProps("div"), {
     node: "div",
     props: {
@@ -13,11 +13,11 @@ test("selectorToNodeAndProps() returns correct structure", t => {
   })
 })
 
-test("selectorToNodeAndProps() throws when given an invalid element", t => {
+test("it throws when given an invalid element", t => {
   t.throws(() => selectorToNodeAndProps("dev"))
 })
 
-test("selectorToNodeAndProps() adds a single class", t => {
+test("it adds a single class", t => {
   t.deepEqual(selectorToNodeAndProps("div.class"), {
     node: "div",
     props: {
@@ -27,7 +27,7 @@ test("selectorToNodeAndProps() adds a single class", t => {
   })
 })
 
-test("selectorToNodeAndProps() adds a single id", t => {
+test("it adds a single id", t => {
   t.deepEqual(selectorToNodeAndProps("div#id"), {
     node: "div",
     props: {
@@ -37,19 +37,19 @@ test("selectorToNodeAndProps() adds a single id", t => {
   })
 })
 
-test("selectorToNodeAndProps() adds a multiple classes", t => {
+test("it adds a multiple classes", t => {
   const result = selectorToNodeAndProps("div.classOne.classTwo")
   t.true(result.props.className.includes("classOne"))
   t.true(result.props.className.includes("classTwo"))
 })
 
-test("selectorToNodeAndProps() adds a multiple ids", t => {
+test("it adds a multiple ids", t => {
   const result = selectorToNodeAndProps("div#idOne#idTwo")
   t.true(result.props.id.includes("idOne"))
   t.true(result.props.id.includes("idTwo"))
 })
 
-test("selectorToNodeAndProps() adds a multiple classes and ids", t => {
+test("it adds a multiple classes and ids", t => {
   const result = selectorToNodeAndProps("div#idOne.classOne#idTwo.classTwo")
   t.true(result.props.className.includes("classOne"))
   t.true(result.props.className.includes("classTwo"))
