@@ -10,6 +10,22 @@ import { regexResults } from "./utility.js"
  *     div#red.show
  */
 
+const joinClasses = (selector, props) => {
+  const propArr = props.className || []
+  const selectorArr = selector.props.className || []
+  const classArr = [...propArr, ...selectorArr]
+
+  return classArr.length > 0 ? { className: classArr.join(" ") } : {}
+}
+
+const joinIds = (selector, props) => {
+  const propArr = props.id || []
+  const selectorArr = selector.props.id || []
+  const idArr = [...propArr, ...selectorArr]
+
+  return idArr.length > 0 ? { id: idArr.join(" ") } : {}
+}
+
 /**
  * el()
  * A wrapper around React.createElement to provide a more succient API
@@ -21,7 +37,26 @@ import { regexResults } from "./utility.js"
  * @returns   {React.element}
  */
 
-export const el = () => {}
+export const el = (selector, ...propsAndChildren) => {
+  const props =
+    propsAndChildren[0] !== null && typeof propsAndChildren[0] === "object"
+      ? propsAndChildren[0]
+      : {}
+
+  const children = Array.isArray(propsAndChildren[0])
+    ? propsAndChildren[0]
+    : Array.isArray(propsAndChildren[1]) ? propsAndChildren[1] : undefined
+
+  const selectorProps = selectorToNodeAndProps(selector)
+  const mergedProps = Object.assign(
+    {},
+    props,
+    joinClasses(selectorProps, props),
+    joinIds(selectorProps, props)
+  )
+
+  return React.createElement(selectorProps.node, mergedProps, children)
+}
 
 /**
  * selectorToNodeAndProps()
