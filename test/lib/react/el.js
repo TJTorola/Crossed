@@ -101,3 +101,11 @@ test("it overloads the second arg", t => {
   t.deepEqual(React.createElement.args[0][1], {})
   t.deepEqual(React.createElement.args[0][2], [])
 })
+
+test("it allows a string as the children", t => {
+  const string = "string"
+  el("div", null, string)
+  el("div", string)
+  t.deepEqual(React.createElement.args[0][2], string)
+  t.deepEqual(React.createElement.args[1][2], string)
+})

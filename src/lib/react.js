@@ -43,9 +43,14 @@ export const el = (selector, ...propsAndChildren) => {
       ? propsAndChildren[0]
       : {}
 
-  const children = Array.isArray(propsAndChildren[0])
-    ? propsAndChildren[0]
-    : Array.isArray(propsAndChildren[1]) ? propsAndChildren[1] : undefined
+  const children =
+    Array.isArray(propsAndChildren[0]) ||
+    typeof propsAndChildren[0] === "string"
+      ? propsAndChildren[0]
+      : Array.isArray(propsAndChildren[1]) ||
+        typeof propsAndChildren[1] === "string"
+        ? propsAndChildren[1]
+        : undefined
 
   const selectorProps = selectorToNodeAndProps(selector)
   const mergedProps = Object.assign(
