@@ -7,8 +7,13 @@
  *
  * @return {Array}
  */
-export const regexResults = regex => query => {
-  const takeResult = (execResult, results = []) =>
+export const regexResults = (regex: RegExp) => (
+  query: string
+): Array<string> => {
+  const takeResult = (
+    execResult: RegExpExecArray,
+    results: Array<string> = []
+  ): Array<string> =>
     execResult !== null
       ? takeResult(regex.exec(query), [...results, execResult[0]])
       : results

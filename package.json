@@ -8,10 +8,13 @@
   },
   "author": "Tyler Torola <Tyler@TJT.Codes>",
   "devDependencies": {
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
     "ava": "^0.22.0",
     "babel-core": "^6.26.0",
     "rollup": "^0.49.3",
     "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-typescript": "^0.8.1",
     "sinon": "^3.2.1"
   }
 }

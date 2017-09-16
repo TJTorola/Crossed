@@ -1,5 +1,5 @@
-import { VALID_ELEMENTS } from "../config/html.js"
-import { regexResults } from "./utility.js"
+import { VALID_ELEMENTS } from "../config/html"
+import { regexResults } from "./utility"
 
 /**
  * A selector is a string that is similar to css selectors. It allows us to
