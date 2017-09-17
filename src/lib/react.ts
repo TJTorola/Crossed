@@ -27,13 +27,17 @@ const joinSelectorDataByKey = (key: string) => (
 const joinClasses = joinSelectorDataByKey("className")
 const joinIds = joinSelectorDataByKey("id")
 
+let currentKey = 0
 const element = (selector: string, props: Props, children?: Children) => {
+  currentKey = (currentKey + 1) % Number.MAX_SAFE_INTEGER
+
   const selectorData = getSelectorData(selector)
   const mergedProps = Object.assign(
     {},
     props,
     joinClasses(selectorData, props),
-    joinIds(selectorData, props)
+    joinIds(selectorData, props),
+    { key: currentKey }
   )
 
   return React.createElement(selectorData.elementType, mergedProps, children)

@@ -15,6 +15,11 @@ test("it calls createElement", t => {
   t.true(React.createElement.called)
 })
 
+test("it adds a key", t => {
+  el("div")
+  t.not(React.createElement.args[0][1].key, undefined)
+})
+
 test("it returns result from createElement", t => {
   const result = Symbol()
   React.createElement = stub().returns(result)
@@ -38,7 +43,7 @@ test("it correctly calls for a classed div", t => {
 
 test("it correctly adds className prop", t => {
   el("div.class")
-  t.deepEqual(React.createElement.args[0][1], { className: "class" })
+  t.is(React.createElement.args[0][1].className, "class")
 })
 
 test("it correctly calls for a IDed div", t => {
@@ -48,7 +53,7 @@ test("it correctly calls for a IDed div", t => {
 
 test("it correctly adds id prop", t => {
   el("div#id")
-  t.deepEqual(React.createElement.args[0][1], { id: "id" })
+  t.is(React.createElement.args[0][1].id, "id")
 })
 
 test("it correctly calls for a classed & IDed div", t => {
@@ -58,37 +63,26 @@ test("it correctly calls for a classed & IDed div", t => {
 
 test("it correctly adds className & id prop", t => {
   el("div.class#id")
-  t.deepEqual(React.createElement.args[0][1], {
-    className: "class",
-    id: "id"
-  })
+  t.is(React.createElement.args[0][1].className, "class")
+  t.is(React.createElement.args[0][1].id, "id")
 })
 
 test("it correctly calls with properties", t => {
   el("div", { prop: "foo" })
-  t.deepEqual(React.createElement.args[0][1], { prop: "foo" })
+  t.is(React.createElement.args[0][1].prop, "foo")
 })
 
 test("it correctly calls with multiple properties", t => {
   el("div", { propStr: "foo", propArr: [1, 3] })
-  t.deepEqual(React.createElement.args[0][1], {
-    propStr: "foo",
-    propArr: [1, 3]
-  })
+  t.is(React.createElement.args[0][1].propStr, "foo")
+  t.deepEqual(React.createElement.args[0][1].propArr, [1, 3])
 })
 
 test("it correctly calls with properties ids and classes", t => {
   el("div.class#id", { prop: "foo" })
-  t.deepEqual(React.createElement.args[0][1], {
-    className: "class",
-    id: "id",
-    prop: "foo"
-  })
-})
-
-test("it ignores null props", t => {
-  el("div", null)
-  t.deepEqual(React.createElement.args[0][1], {})
+  t.is(React.createElement.args[0][1].className, "class")
+  t.is(React.createElement.args[0][1].id, "id")
+  t.is(React.createElement.args[0][1].prop, "foo")
 })
 
 test("it correctly adds children", t => {
@@ -98,7 +92,6 @@ test("it correctly adds children", t => {
 
 test("it overloads the second arg", t => {
   el("div", [])
-  t.deepEqual(React.createElement.args[0][1], {})
   t.deepEqual(React.createElement.args[0][2], [])
 })
 
