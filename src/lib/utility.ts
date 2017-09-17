@@ -21,7 +21,9 @@ export const regexResults = (regex: RegExp) => (
   return takeResult(regex.exec(query))
 }
 
-export const isObjectLiteral = maybeObj => {
+export const isObjectLiteral = (
+  maybeObj: any
+): maybeObj is { [prop: string]: string } => {
   try {
     return Object.getPrototypeOf(undefined) === Object.prototype
   } catch (e) {

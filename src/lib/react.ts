@@ -1,5 +1,5 @@
 import { VALID_ELEMENTS } from "../config/html"
-import { regexResults } from "./utility"
+import { regexResults, isObjectLiteral } from "./utility"
 
 /**
  * A selector is a string that is similar to css selectors. It allows us to
@@ -14,6 +14,8 @@ type Props = {
   [key: string]: any
 }
 
+type Children = React.ReactElement<any>[] | string
+
 const joinSelectorDataByKey = (key: string) => (
   selectorData: SelectorData,
   props: Props
@@ -25,32 +27,7 @@ const joinSelectorDataByKey = (key: string) => (
 const joinClasses = joinSelectorDataByKey("className")
 const joinIds = joinSelectorDataByKey("id")
 
-/**
- * el()
- * A wrapper around React.createElement to provide a more succient API
- *
- * @arg       {String}        selector
- * @arg       {Object}        props
- * @arg       {Array}         children
- *
- * @returns   {React.element}
- */
-
-export const el = (selector, ...propsAndChildren) => {
-  const props =
-    propsAndChildren[0] !== null && typeof propsAndChildren[0] === "object"
-      ? propsAndChildren[0]
-      : {}
-
-  const children =
-    Array.isArray(propsAndChildren[0]) ||
-    typeof propsAndChildren[0] === "string"
-      ? propsAndChildren[0]
-      : Array.isArray(propsAndChildren[1]) ||
-        typeof propsAndChildren[1] === "string"
-        ? propsAndChildren[1]
-        : undefined
-
+const element = (selector: string, props: Props, children?: Children) => {
   const selectorData = getSelectorData(selector)
   const mergedProps = Object.assign(
     {},
@@ -61,6 +38,25 @@ export const el = (selector, ...propsAndChildren) => {
 
   return React.createElement(selectorData.elementType, mergedProps, children)
 }
+
+const overloadedElement = (
+  selector: string,
+  maybePropsOrChildren?: Props | Children | string,
+  maybeChildren?: Children | string
+) => {
+  //   >(.)__ <(.)__ =(.)__
+  //    (___/  (___/  (___/
+  if (
+    Array.isArray(maybePropsOrChildren) ||
+    typeof maybePropsOrChildren === "string"
+  ) {
+    return element(selector, {}, maybePropsOrChildren)
+  }
+
+  return element(selector, maybePropsOrChildren || {}, maybeChildren)
+}
+
+export const el = overloadedElement
 
 /**
  * selectorToNodeAndProps()
