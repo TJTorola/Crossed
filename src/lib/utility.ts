@@ -20,3 +20,11 @@ export const regexResults = (regex: RegExp) => (
 
   return takeResult(regex.exec(query))
 }
+
+export const isObjectLiteral = maybeObj => {
+  try {
+    return Object.getPrototypeOf(undefined) === Object.prototype
+  } catch (e) {
+    return false
+  }
+}

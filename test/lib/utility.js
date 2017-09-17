@@ -1,7 +1,7 @@
 import test from "ava"
 import crossed from "../../build/crossed.js"
 
-const { regexResults } = crossed.lib.utility
+const { regexResults, isObjectLiteral } = crossed.lib.utility
 
 test("regexResults() returns single element", t => {
   t.deepEqual(regexResults(/(abc)/g)("ahsabcajsd"), ["abc"])
@@ -30,4 +30,40 @@ test("regexResults() can be ran mutiple times on same curried regex", t => {
   t.deepEqual(results(str), ["a", "b", "c"])
   t.deepEqual(results(str), ["a", "b", "c"])
   t.deepEqual(results("def"), ["d", "e", "f"])
+})
+
+test(`isObjectLiteral() returns false for arrays`, t => {
+  t.false(isObjectLiteral([]))
+})
+
+test(`isObjectLiteral() returns false for null`, t => {
+  t.false(isObjectLiteral(null))
+})
+
+test(`isObjectLiteral() returns false for booleans`, t => {
+  t.false(isObjectLiteral(false))
+})
+
+test(`isObjectLiteral() returns false for regex`, t => {
+  t.false(isObjectLiteral(/[a-z]/g))
+})
+
+test(`isObjectLiteral() returns false for numbers`, t => {
+  t.false(isObjectLiteral(3))
+})
+
+test(`isObjectLiteral() returns false for strings`, t => {
+  t.false(isObjectLiteral("hello"))
+})
+
+test(`isObjectLiteral() returns false for undefined`, t => {
+  t.false(isObjectLiteral(undefined))
+})
+
+test(`isObjectLiteral() returns true for empty object`, t => {
+  t.false(isObjectLiteral({}))
+})
+
+test(`isObjectLiteral() returns true for object with content`, t => {
+  t.false(isObjectLiteral({ foo: "bar" }))
 })
