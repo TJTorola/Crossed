@@ -10,18 +10,20 @@ import { regexResults } from "./utility"
  *     div#red.show
  */
 
-const joinClasses = (
-  selectorData: SelectorData,
-  props
-): { className?: string } => {
-  const classArr = [...(props.className || []), ...selectorData.className]
-  return classArr.length > 0 ? { className: classArr.join(" ") } : {}
+type Props = {
+  [key: string]: any
 }
 
-const joinIds = (selectorData: SelectorData, props): { id?: string } => {
-  const idArr = [...(props.id || []), ...selectorData.id]
-  return idArr.length > 0 ? { id: idArr.join(" ") } : {}
+const joinSelectorDataByKey = (key: string) => (
+  selectorData: SelectorData,
+  props: Props
+) => {
+  const data = [...(props[key] || []), ...selectorData[key]]
+  return data.length > 0 ? { [key]: data.join(" ") } : {}
 }
+
+const joinClasses = joinSelectorDataByKey("className")
+const joinIds = joinSelectorDataByKey("id")
 
 /**
  * el()
