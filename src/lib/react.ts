@@ -10,19 +10,16 @@ import { regexResults } from "./utility"
  *     div#red.show
  */
 
-const joinClasses = (selector, props) => {
-  const propArr = props.className || []
-  const selectorArr = selector.props.className || []
-  const classArr = [...propArr, ...selectorArr]
-
+const joinClasses = (
+  selectorData: SelectorData,
+  props
+): { className?: string } => {
+  const classArr = [...(props.className || []), ...selectorData.className]
   return classArr.length > 0 ? { className: classArr.join(" ") } : {}
 }
 
-const joinIds = (selector, props) => {
-  const propArr = props.id || []
-  const selectorArr = selector.props.id || []
-  const idArr = [...propArr, ...selectorArr]
-
+const joinIds = (selectorData: SelectorData, props): { id?: string } => {
+  const idArr = [...(props.id || []), ...selectorData.id]
   return idArr.length > 0 ? { id: idArr.join(" ") } : {}
 }
 
@@ -52,15 +49,15 @@ export const el = (selector, ...propsAndChildren) => {
         ? propsAndChildren[1]
         : undefined
 
-  const selectorProps = selectorToNodeAndProps(selector)
+  const selectorData = getSelectorData(selector)
   const mergedProps = Object.assign(
     {},
     props,
-    joinClasses(selectorProps, props),
-    joinIds(selectorProps, props)
+    joinClasses(selectorData, props),
+    joinIds(selectorData, props)
   )
 
-  return React.createElement(selectorProps.node, mergedProps, children)
+  return React.createElement(selectorData.elementType, mergedProps, children)
 }
 
 /**
@@ -78,9 +75,17 @@ export const el = (selector, ...propsAndChildren) => {
  * @returns   {NodeAndProps}
  */
 
-export const selectorToNodeAndProps = selector => {
-  const node = VALID_ELEMENTS.find(element => selector.startsWith(element))
-  if (node === undefined) {
+type SelectorData = {
+  elementType: string
+  className: string[]
+  id: string[]
+}
+
+export const getSelectorData = (selector: string): SelectorData => {
+  const elementType = VALID_ELEMENTS.find(element =>
+    selector.startsWith(element)
+  )
+  if (elementType === undefined) {
     throw new Error(`
       ${selector} is not a valid element.
       See src/config/html.js - VALID_ELEMENTS.
@@ -91,10 +96,8 @@ export const selectorToNodeAndProps = selector => {
   const classRegex = /(\.[_a-zA-Z]+[_a-zA-Z0-9-]*)/g
 
   return {
-    node,
-    props: {
-      className: regexResults(classRegex)(selector).map(str => str.slice(1)),
-      id: regexResults(idRegex)(selector).map(str => str.slice(1))
-    }
+    elementType,
+    className: regexResults(classRegex)(selector).map(str => str.slice(1)),
+    id: regexResults(idRegex)(selector).map(str => str.slice(1))
   }
 }
