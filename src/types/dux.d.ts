@@ -1,40 +1,53 @@
 declare type State = any
-
 declare type Action = {
   type: string
-  payload: {
-    [key: string]: any
-  }
+  payload: any
 }
 
-declare type Middleware = (state: State) => Action | Promise<Action>
+declare type Introspector = (
+  values: {
+    actions: Action[]
+    prevState: State
+    nextState: State
+    response: any
+  }
+) => void
+
+declare type Middleware = (state: State, action: Action) => Action | void
 declare type Reducer = (state: State, action: Action) => State
 
-declare type Observer = (
+declare type LoadedResponder = (action: Action) => any
+declare type Responder = (
   getState: GetState,
   dispatch: Dispatch
-) => (action: Action) => void
-declare type Observers = {
-  [actionType: string]: Observer
+) => LoadedResponder
+declare type LoadedResponders = {
+  [actionType: string]: LoadedResponder
 }
 
 declare type GetState = () => State
-declare type Dispatch = (action: Action) => void
+declare type Dispatch = (action: Action) => any
 
-declare type SubscriptionKey = string
 declare type Listener = (state: State) => void
-declare type Subscribe = (listener: Listener) => SubscriptionKey
-declare type Unsubscribe = (key: SubscriptionKey) => void
+declare type Unsubscribe = () => boolean
+declare type Subscribe = (listener: Listener) => Unsubscribe
+
+declare type ReplaceReducer = (nextReducer: Reducer) => void
 
 declare type Store = {
   getState: GetState
   dispatch: Dispatch
   subscribe: Subscribe
-  unsubscribe: Unsubscribe
+  replaceReducer: ReplaceReducer
 }
 
 declare type CreateStore = (
-  middleware: Array<Middleware>,
-  reducer: Reducer,
-  observers: Observers
+  arguments: {
+    middleware?: Middleware[]
+    reducer: Reducer
+    responders?: {
+      [actionType: string]: Responder
+    }
+    introspectors?: Introspector[]
+  }
 ) => Store
