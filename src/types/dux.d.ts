@@ -1,7 +1,7 @@
 declare type State = any
 declare type Action = {
   type: string
-  payload: any
+  payload?: any
 }
 
 declare type Introspector = (
