@@ -30,3 +30,10 @@ export const isObjectLiteral = (
     return false
   }
 }
+
+type Mapper = (val: any, key?: string) => any
+export const objMap = (object: { [key: string]: any }, mapper: Mapper) =>
+  Object.keys(object).reduce(
+    (acc, key) => Object.assign(acc, { [key]: mapper(object[key], key) }),
+    {}
+  )

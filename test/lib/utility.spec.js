@@ -1,7 +1,7 @@
 import test from "ava"
 import crossed from "../../build/crossed.js"
 
-const { regexResults, isObjectLiteral } = crossed.lib.utility
+const { regexResults, isObjectLiteral, objMap } = crossed.lib.utility
 
 test("regexResults() returns single element", t => {
   t.deepEqual(regexResults(/(abc)/g)("ahsabcajsd"), ["abc"])
@@ -66,4 +66,22 @@ test(`isObjectLiteral() returns true for empty object`, t => {
 
 test(`isObjectLiteral() returns true for object with content`, t => {
   t.false(isObjectLiteral({ foo: "bar" }))
+})
+
+test("objMap() allows you to map an object", t => {
+  t.is(objMap({ foo: 1 }, val => val + 1).foo, 2)
+})
+
+test("objMap() doesn't mutate the object", t => {
+  const obj = { foo: 1 }
+  const mappedObj = objMap(obj, val => val + 1)
+
+  t.is(obj.foo, 1)
+})
+
+test("objMap() passes the key", t => {
+  const obj = { foo: 1 }
+  const mappedObj = objMap(obj, (val, key) => key)
+
+  t.is(mappedObj.foo, "foo")
 })
