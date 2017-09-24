@@ -14,6 +14,15 @@ const BORING_REDUCER = (state = 0, action) => {
 const ADD = () => ({ type: "ADD" })
 const UNADD = () => ({ type: "UNADD" })
 
+const NOTHINGER = (dispatch, getState) => action => null
+const SPIER = spy => (dispatch, getState) => spy
+const STATER = (dispatch, getState) => action => getState()
+const ACTIONER = (dispatch, getState) => action => action
+const RETURNER = thingToReturn => (dispatch, getState) => action =>
+  thingToReturn
+const DISPATCHER = actionToDispatch => (dispatch, getState) => action =>
+  dispatch(actionToDispatch)
+
 const STOP_WARE = (state, action) => undefined
 const NULL_WARE = (state, action) => null
 const PASS_WARE = (state, action) => action
@@ -23,9 +32,14 @@ const BAZ_WARE = (state, action) => Object.assign({}, action, { baz: "baz" })
 const ADD_WARE = (state, action) => ADD()
 
 module.exports = {
-  ADD,
   BORING_REDUCER,
+  ADD,
   UNADD,
+  NOTHINGER,
+  STATER,
+  ACTIONER,
+  RETURNER,
+  DISPATCHER,
   STOP_WARE,
   NULL_WARE,
   PASS_WARE,
