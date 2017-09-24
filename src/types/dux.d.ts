@@ -18,8 +18,8 @@ declare type Reducer = (state: State, action: Action) => State
 
 declare type LoadedResponder = (action: Action) => any
 declare type Responder = (
-  getState: GetState,
-  dispatch: Dispatch
+  dispatch: Dispatch,
+  getState: GetState
 ) => LoadedResponder
 declare type LoadedResponders = {
   [actionType: string]: LoadedResponder
