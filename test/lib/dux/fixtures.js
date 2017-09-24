@@ -11,6 +11,19 @@ const BORING_REDUCER = (state = 0, action) => {
   }
 }
 
+const EXCITING_REDUCER = (state = 0, action) => {
+  switch (action.type) {
+    case "ADD":
+      return state - 1
+
+    case "UNADD":
+      return state + 1
+
+    default:
+      return state
+  }
+}
+
 const ADD = () => ({ type: "ADD" })
 const UNADD = () => ({ type: "UNADD" })
 
@@ -33,6 +46,7 @@ const ADD_WARE = (state, action) => ADD()
 
 module.exports = {
   BORING_REDUCER,
+  EXCITING_REDUCER,
   ADD,
   UNADD,
   NOTHINGER,
