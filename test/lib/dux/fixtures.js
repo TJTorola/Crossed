@@ -14,8 +14,23 @@ const BORING_REDUCER = (state = 0, action) => {
 const ADD = () => ({ type: "ADD" })
 const UNADD = () => ({ type: "UNADD" })
 
+const STOP_WARE = (state, action) => undefined
+const NULL_WARE = (state, action) => null
+const PASS_WARE = (state, action) => action
+const FOO_WARE = (state, action) => Object.assign({}, action, { foo: "foo" })
+const BAR_WARE = (state, action) => Object.assign({}, action, { bar: "bar" })
+const BAZ_WARE = (state, action) => Object.assign({}, action, { baz: "baz" })
+const ADD_WARE = (state, action) => ADD()
+
 module.exports = {
   ADD,
   BORING_REDUCER,
-  UNADD
+  UNADD,
+  STOP_WARE,
+  NULL_WARE,
+  PASS_WARE,
+  FOO_WARE,
+  BAR_WARE,
+  BAZ_WARE,
+  ADD_WARE
 }
