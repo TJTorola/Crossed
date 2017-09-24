@@ -39,6 +39,7 @@ module.exports = {
   STATER,
   ACTIONER,
   RETURNER,
+  SPIER,
   DISPATCHER,
   STOP_WARE,
   NULL_WARE,
