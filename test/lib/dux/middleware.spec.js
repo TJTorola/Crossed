@@ -16,7 +16,7 @@ import {
 
 const { createStore } = crossed.lib.dux
 
-test("it calls a single middleware", t => {
+test("is called", t => {
   const spyWare = spy(PASS_WARE)
   const store = createStore({
     reducer: BORING_REDUCER,
@@ -27,7 +27,7 @@ test("it calls a single middleware", t => {
   t.is(spyWare.calledOnce, true)
 })
 
-test("it calls multiple middleware", t => {
+test("are all called", t => {
   const spyWare = spy(PASS_WARE)
   const store = createStore({
     reducer: BORING_REDUCER,
@@ -38,7 +38,7 @@ test("it calls multiple middleware", t => {
   t.is(spyWare.calledTwice, true)
 })
 
-test("it calls middleware each time you dispatch", t => {
+test("are called each time a dispatch happens", t => {
   const spyWare = spy(PASS_WARE)
   const store = createStore({
     reducer: BORING_REDUCER,
@@ -50,7 +50,7 @@ test("it calls middleware each time you dispatch", t => {
   t.is(spyWare.calledTwice, true)
 })
 
-test("still calls the reducer with middleware", t => {
+test("don't stop reducers from being called", t => {
   const deceitfulReducer = spy(BORING_REDUCER)
   const store = createStore({
     reducer: deceitfulReducer,
@@ -62,7 +62,7 @@ test("still calls the reducer with middleware", t => {
   t.is(deceitfulReducer.calledWith(addAction), true)
 })
 
-test("still calls the reducer with multiple middleware", t => {
+test("don't stop reducers with mutiple middleware", t => {
   const deceitfulReducer = spy(BORING_REDUCER)
   const store = createStore({
     reducer: deceitfulReducer,
@@ -74,7 +74,7 @@ test("still calls the reducer with multiple middleware", t => {
   t.is(deceitfulReducer.calledWith(addAction), true)
 })
 
-test("uses the action middleware returns", t => {
+test("can change the action that is reduced", t => {
   const store = createStore({
     reducer: BORING_REDUCER,
     middleware: [ADD_WARE]
@@ -84,7 +84,7 @@ test("uses the action middleware returns", t => {
   t.is(store.getState(), 1)
 })
 
-test("doesn't pass an action if middleware return undefined", t => {
+test("can stop the reducer if it returns undefined", t => {
   const store = createStore({
     reducer: BORING_REDUCER,
     middleware: [STOP_WARE]
@@ -94,7 +94,7 @@ test("doesn't pass an action if middleware return undefined", t => {
   t.is(store.getState(), 0)
 })
 
-test("doesn't pass an action if middleware return null", t => {
+test("can stop the reducer if it returns null", t => {
   const store = createStore({
     reducer: BORING_REDUCER,
     middleware: [NULL_WARE]
@@ -104,7 +104,7 @@ test("doesn't pass an action if middleware return null", t => {
   t.is(store.getState(), 0)
 })
 
-test("doesn't call middleware after a previous one returns null", t => {
+test("can stop the later middleware if it returns null", t => {
   const spyWare = spy(PASS_WARE)
   const store = createStore({
     reducer: BORING_REDUCER,
@@ -115,7 +115,7 @@ test("doesn't call middleware after a previous one returns null", t => {
   t.is(spyWare.called, false)
 })
 
-test("doesn't call middleware after a previous one returns undefined", t => {
+test("can stop the later middleware if it returns undefined", t => {
   const spyWare = spy(PASS_WARE)
   const store = createStore({
     reducer: BORING_REDUCER,
@@ -126,7 +126,7 @@ test("doesn't call middleware after a previous one returns undefined", t => {
   t.is(spyWare.called, false)
 })
 
-test("calls middleware in order with actions created from the last middleware", t => {
+test("is called in order", t => {
   const fooSpy = spy(FOO_WARE)
   const barSpy = spy(BAR_WARE)
   const bazSpy = spy(BAZ_WARE)

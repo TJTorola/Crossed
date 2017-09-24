@@ -14,7 +14,7 @@ import {
 
 const { createStore } = crossed.lib.dux
 
-test("it calls the correct responder", t => {
+test("are called by action type", t => {
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER,
@@ -27,7 +27,7 @@ test("it calls the correct responder", t => {
   t.is(mySpy.called, true)
 })
 
-test("it doesnt call the incorrect responder", t => {
+test("are not called by other action types", t => {
   const addSpy = spy()
   const unaddSpy = spy()
   const store = createStore({
@@ -43,7 +43,7 @@ test("it doesnt call the incorrect responder", t => {
   t.is(unaddSpy.called, false)
 })
 
-test("dispatch returns the return of the responder", t => {
+test("dictate the return value of dispatch", t => {
   const mySymbol = Symbol()
   const store = createStore({
     reducer: BORING_REDUCER,
@@ -55,7 +55,7 @@ test("dispatch returns the return of the responder", t => {
   t.is(store.dispatch(ADD()), mySymbol)
 })
 
-test("is correctly passed getState and dispatch", t => {
+test("are passed dispatch and getState", t => {
   const mySpy = stub().returns(() => {})
   const store = createStore({
     reducer: BORING_REDUCER,
@@ -68,7 +68,7 @@ test("is correctly passed getState and dispatch", t => {
   t.is(mySpy.args[0][1], store.getState)
 })
 
-test("gets passed correctly modified action", t => {
+test("gets passed middleware modified action", t => {
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER,

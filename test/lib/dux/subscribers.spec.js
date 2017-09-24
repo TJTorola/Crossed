@@ -5,7 +5,7 @@ import { ADD, BORING_REDUCER, DISPATCHER } from "./fixtures"
 
 const { createStore } = crossed.lib.dux
 
-test("it calls a subscriber", t => {
+test("are called", t => {
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER
@@ -16,7 +16,7 @@ test("it calls a subscriber", t => {
   t.is(mySpy.calledOnce, true)
 })
 
-test("it passes in the newState", t => {
+test("are passed newState", t => {
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER
@@ -27,7 +27,7 @@ test("it passes in the newState", t => {
   t.is(mySpy.calledWith(1), true)
 })
 
-test("it calls multiple times", t => {
+test("are called for each dispatch", t => {
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER
@@ -39,7 +39,7 @@ test("it calls multiple times", t => {
   t.is(mySpy.calledTwice, true)
 })
 
-test("it respects unsubscribe", t => {
+test("can be unsubscribed", t => {
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER
@@ -54,7 +54,7 @@ test("it respects unsubscribe", t => {
   t.is(mySpy.calledOnce, true)
 })
 
-test("it calls only once if responders syncronously dispatch more actions", t => {
+test("only get called once for multiple syncronous calls to dispatch from responders", t => {
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER,
@@ -68,7 +68,7 @@ test("it calls only once if responders syncronously dispatch more actions", t =>
   t.is(mySpy.calledOnce, true)
 })
 
-test("it calls with the newest state if responders syncronously dispatch more actions", t => {
+test("are given the newest state if responders syncronously dispatch more actions", t => {
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER,

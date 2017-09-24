@@ -5,7 +5,7 @@ import { ADD, BORING_REDUCER, EXCITING_REDUCER } from "./fixtures"
 
 const { createStore } = crossed.lib.dux
 
-test("correctle replaces the reducer", t => {
+test("correctly replaces the reducer", t => {
   const store = createStore({
     reducer: BORING_REDUCER
   })

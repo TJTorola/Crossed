@@ -24,12 +24,12 @@ createStore({
   introspectors: [mySpy]
 }).dispatch(ADD())
 
-test("all introspectors are called", t => {
+test("are all called", t => {
   t.is(mySpy.called, true)
   t.is(myOtherSpy.called, true)
 })
 
-test("it calls with the array of action changes", t => {
+test("are called with the array of action changes", t => {
   t.deepEqual(mySpy.args[0][0].actions, [
     { type: "ADD" },
     { type: "ADD", foo: "foo" },
@@ -38,14 +38,14 @@ test("it calls with the array of action changes", t => {
   ])
 })
 
-test("it passes the previous state", t => {
+test("are passed the previous state", t => {
   t.is(mySpy.args[0][0].prevState, 0)
 })
 
-test("it passes the next state", t => {
+test("are passed the next state", t => {
   t.is(mySpy.args[0][0].nextState, 1)
 })
 
-test("it passes the return", t => {
+test("are passed the return of the responder", t => {
   t.is(mySpy.args[0][0].response, mySymbol)
 })

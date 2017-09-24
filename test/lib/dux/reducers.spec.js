@@ -8,21 +8,21 @@ const store = createStore({
   reducer: BORING_REDUCER
 })
 
-test("it initializes", t => {
+test("are initialized before an action is dispatched", t => {
   t.is(store.getState(), 0)
 })
 
-test("it reduces", t => {
+test("affect state", t => {
   store.dispatch(ADD())
   t.is(store.getState(), 1)
 })
 
-test("it reduces again", t => {
+test("continue to affect state", t => {
   store.dispatch(ADD())
   t.is(store.getState(), 2)
 })
 
-test("it reduces other things", t => {
+test("can take differant actions", t => {
   store.dispatch(UNADD())
   t.is(store.getState(), 1)
 })
