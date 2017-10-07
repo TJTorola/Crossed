@@ -12,7 +12,7 @@ export const createStore: CreateStore = ({
   let currentReducer = reducer
   let state = currentReducer(undefined, { type: "@@DUX:INIT" })
 
-  const loadedResponders = objMap(responders, resp => resp(dispatch, getState))
+  let loadedResponders
 
   const subscribe = subscriber => {
     const thisKey = key++
@@ -25,16 +25,25 @@ export const createStore: CreateStore = ({
   const dispatch = action => {
     syncDispatchCount++
 
-    const actions = middleware.reduce((acc, ware) => {
-      const last = acc.length > 0 ? acc[acc.length - 1] : action
-      return [...acc, last ? ware(state, last) : last]
-    }, [])
+    const actions = middleware.reduce(
+      (acc, ware) => {
+        const last = acc[acc.length - 1]
+        return [...acc, last ? ware(state, last) : last]
+      },
+      [action]
+    )
+    const finalAction = actions[actions.length - 1]
 
-    const finalAction =
-      actions.length > 0 ? actions[actions.length - 1] : action
+    if (!finalAction) {
+      syncDispatchCount--
+      introspectors.forEach(i =>
+        i({ actions, prevState: state, nextState: state, response: undefined })
+      )
+      return
+    }
 
     const prevState = state
-    const nextState = reducer(state, finalAction)
+    const nextState = currentReducer(state, finalAction)
 
     state = nextState
     const response = loadedResponders[finalAction.type]
@@ -44,13 +53,17 @@ export const createStore: CreateStore = ({
     introspectors.forEach(i => i({ actions, prevState, nextState, response }))
 
     if (syncDispatchCount-- === 1) {
-      subscriptionMap.forEach(s => s(state))
+      subscriptionMap.forEach(s => s(getState()))
     }
+
+    return response
   }
 
   const replaceReducer = nextReducer => {
     currentReducer = nextReducer
   }
+
+  loadedResponders = objMap(responders, resp => resp(dispatch, getState))
 
   return {
     getState,

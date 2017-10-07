@@ -59,7 +59,7 @@ test("don't stop reducers from being called", t => {
 
   const addAction = ADD()
   store.dispatch(addAction)
-  t.is(deceitfulReducer.calledWith(addAction), true)
+  t.is(deceitfulReducer.called, true)
 })
 
 test("don't stop reducers with mutiple middleware", t => {
@@ -71,7 +71,7 @@ test("don't stop reducers with mutiple middleware", t => {
 
   const addAction = ADD()
   store.dispatch(addAction)
-  t.is(deceitfulReducer.calledWith(addAction), true)
+  t.is(deceitfulReducer.called, true)
 })
 
 test("can change the action that is reduced", t => {

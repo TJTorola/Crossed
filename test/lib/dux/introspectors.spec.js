@@ -18,10 +18,10 @@ const myOtherSpy = spy()
 createStore({
   reducer: BORING_REDUCER,
   middleware: [FOO_WARE, BAR_WARE, BAZ_WARE],
-  observers: {
+  responders: {
     ADD: RETURNER(mySymbol)
   },
-  introspectors: [mySpy]
+  introspectors: [mySpy, myOtherSpy]
 }).dispatch(ADD())
 
 test("are all called", t => {

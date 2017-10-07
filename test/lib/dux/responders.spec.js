@@ -19,7 +19,7 @@ test("are called by action type", t => {
   const store = createStore({
     reducer: BORING_REDUCER,
     responders: {
-      ADD: SPIER(spy)
+      ADD: SPIER(mySpy)
     }
   })
 
@@ -74,7 +74,7 @@ test("gets passed middleware modified action", t => {
     reducer: BORING_REDUCER,
     middleware: [ADD_WARE],
     responders: {
-      ADD: SPIER(spy)
+      ADD: SPIER(mySpy)
     }
   })
 

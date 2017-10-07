@@ -33,8 +33,9 @@ const STATER = (dispatch, getState) => action => getState()
 const ACTIONER = (dispatch, getState) => action => action
 const RETURNER = thingToReturn => (dispatch, getState) => action =>
   thingToReturn
-const DISPATCHER = actionToDispatch => (dispatch, getState) => action =>
-  dispatch(actionToDispatch)
+const DISPATCHER = (dispatch, getState) => action => {
+  dispatch(UNADD())
+}
 
 const STOP_WARE = (state, action) => undefined
 const NULL_WARE = (state, action) => null

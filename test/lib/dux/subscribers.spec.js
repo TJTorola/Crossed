@@ -58,8 +58,8 @@ test("only get called once for multiple syncronous calls to dispatch from respon
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER,
-    observers: {
-      ADD: DISPATCHER({ type: "UNADD" })
+    responders: {
+      ADD: DISPATCHER
     }
   })
   store.subscribe(mySpy)
@@ -72,12 +72,12 @@ test("are given the newest state if responders syncronously dispatch more action
   const mySpy = spy()
   const store = createStore({
     reducer: BORING_REDUCER,
-    observers: {
-      ADD: DISPATCHER({ type: "UNADD" })
+    responders: {
+      ADD: DISPATCHER
     }
   })
   const unsubscribe = store.subscribe(mySpy)
 
   store.dispatch(ADD())
-  t.is(mySpy.calledWith(0), true)
+  t.is(mySpy.args[0][0], 0)
 })
