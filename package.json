@@ -4,6 +4,7 @@
   "scripts": {
     "test": "ava 'test/**/*.spec.js' -v",
     "test-ff": "ava 'test/**/*.spec.js' --fail-fast || true",
+    "test-w": "ava 'test/**/*.spec.js' --watch",
     "start": "rollup -cw"
   },
   "author": "Tyler Torola <Tyler@TJT.Codes>",
