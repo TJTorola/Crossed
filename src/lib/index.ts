@@ -1,4 +1,4 @@
-import * as dux from "./dux"
+import dux from "./dux/index"
 import * as react from "./react"
 import * as utility from "./utility"
 

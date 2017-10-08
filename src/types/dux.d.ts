@@ -6,7 +6,7 @@ declare type Action = {
 
 declare type Introspector = (
   values: {
-    actions: Action[]
+    actions: (void | Action)[]
     prevState: State
     nextState: State
     response: any
@@ -16,25 +16,37 @@ declare type Introspector = (
 declare type Middleware = (state: State, action: Action) => Action | void
 declare type Reducer = (state: State, action: Action) => State
 
-declare type LoadedResponder = (action: Action) => any
 declare type Responder = (
   dispatch: Dispatch,
   getState: GetState
-) => LoadedResponder
-declare type LoadedResponders = {
-  [actionType: string]: LoadedResponder
+) => (action: Action) => any
+declare type Responders = {
+  [actionType: string]: Responder
 }
 
+declare type SetState = (state: State) => void
 declare type GetState = () => State
 declare type Dispatch = (action: Action) => any
 
 declare type Listener = (state: State) => void
 declare type Unsubscribe = () => boolean
 declare type Subscribe = (listener: Listener) => Unsubscribe
+declare type CallSubscribers = () => void
 
+declare type GetReducer = () => Reducer
 declare type ReplaceReducer = (nextReducer: Reducer) => void
 
-declare type Store = {
+declare type DuxInternalAPI = {
+  getState: GetState
+  setState: SetState
+  getReducer: GetReducer
+  responders: Responders
+  introspectors: Introspector[]
+  middleware: Middleware[]
+  callSubscribers: CallSubscribers
+}
+
+declare type DuxExternalAPI = {
   getState: GetState
   dispatch: Dispatch
   subscribe: Subscribe
@@ -45,9 +57,7 @@ declare type CreateStore = (
   arguments: {
     middleware?: Middleware[]
     reducer: Reducer
-    responders?: {
-      [actionType: string]: Responder
-    }
+    responders?: Responders
     introspectors?: Introspector[]
   }
-) => Store
+) => DuxExternalAPI
