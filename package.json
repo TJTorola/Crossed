@@ -2,10 +2,11 @@
   "name": "crossed",
   "version": "0.0.0",
   "scripts": {
+    "build": "rollup --config config/rollup.js",
+    "start": "rollup -w --config config/rollup.js",
     "test": "ava 'test/**/*.spec.js' -v",
     "test-ff": "ava 'test/**/*.spec.js' --fail-fast || true",
-    "test-w": "ava 'test/**/*.spec.js' --watch",
-    "start": "rollup -cw"
+    "test-w": "ava 'test/**/*.spec.js' --watch"
   },
   "author": "Tyler Torola <Tyler@TJT.Codes>",
   "devDependencies": {
@@ -13,10 +14,14 @@
     "@types/react-dom": "^15.5.4",
     "ava": "^0.22.0",
     "babel-core": "^6.26.0",
+    "cssnano": "^3.10.0",
     "postcss": "^6.0.13",
+    "postcss-css-variables": "^0.8.0",
     "postcss-import": "^11.0.0",
     "rollup": "^0.49.3",
     "rollup-plugin-babel": "^3.0.2",
+    "rollup-plugin-closure-compiler-js": "^1.0.5",
+    "rollup-plugin-copy": "^0.2.3",
     "rollup-plugin-postcss": "^0.5.5",
     "rollup-plugin-typescript": "^0.8.1",
     "sinon": "^3.2.1"
