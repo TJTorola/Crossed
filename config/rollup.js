@@ -1,19 +1,22 @@
 import babel from "rollup-plugin-babel"
+import copy from "rollup-plugin-copy"
 import typescript from "rollup-plugin-typescript"
 import postcss from "rollup-plugin-postcss"
 
 import babelConfig from "./babel.js"
 import postcssConfig from "./postcss.js"
+import staticConfig from "./static.js"
 import typesciptConfig from "./typescript.js"
 
 export default {
-  input: "src/index.ts",
+  input: "src/js/index.ts",
   output: {
-    file: "build/crossed.js",
+    file: "dist/crossed.js",
     format: "umd",
     name: "crossed"
   },
   plugins: [
+    copy(staticConfig),
     typescript(typesciptConfig),
     postcss(postcssConfig),
     babel(babelConfig)
