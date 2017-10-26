@@ -2,6 +2,8 @@
   "name": "crossed",
   "version": "0.0.0",
   "scripts": {
+    "build": "rollup --config config/build/rollup.js",
+    "start": "rollup -w --config config/build/rollup.js",
     "test": "ava 'test/**/*.spec.js' -v",
     "test-ff": "ava 'test/**/*.spec.js' --fail-fast || true",
     "test-w": "ava 'test/**/*.spec.js' --watch",
