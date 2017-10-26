@@ -1,4 +1,5 @@
 import babel from "rollup-plugin-babel"
+import closureCompiler from "rollup-plugin-closure-compiler-js"
 import copy from "rollup-plugin-copy"
 import typescript from "rollup-plugin-typescript"
 import postcss from "rollup-plugin-postcss"
@@ -19,6 +20,7 @@ export default {
     copy(staticConfig),
     typescript(typesciptConfig),
     postcss(postcssConfig),
-    babel(babelConfig)
+    babel(babelConfig),
+    closureCompiler()
   ]
 }
