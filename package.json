@@ -30,6 +30,6 @@
     "sinon": "^3.2.1"
   },
   "dependencies": {
-    "hyperapp": "^0.15.1"
+    "picodom": "^1.0.0"
   }
 }
