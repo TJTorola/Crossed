@@ -1,6 +1,7 @@
 import babel from "rollup-plugin-babel"
 import closureCompiler from "rollup-plugin-closure-compiler-js"
 import copy from "rollup-plugin-copy"
+import nodeResolve from "rollup-plugin-node-resolve"
 import typescript from "rollup-plugin-typescript"
 import postcss from "rollup-plugin-postcss"
 
@@ -19,6 +20,7 @@ export default {
   plugins: [
     copy(staticConfig),
     typescript(typesciptConfig),
+    nodeResolve(),
     postcss(postcssConfig),
     babel(babelConfig),
     closureCompiler()
