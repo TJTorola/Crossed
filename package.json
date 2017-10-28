@@ -25,5 +25,8 @@
     "rollup-plugin-postcss": "^0.5.5",
     "rollup-plugin-typescript": "^0.8.1",
     "sinon": "^3.2.1"
+  },
+  "dependencies": {
+    "hyperapp": "^0.15.1"
   }
 }
