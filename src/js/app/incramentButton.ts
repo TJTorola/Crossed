@@ -1,4 +1,4 @@
-import { connect } from "../lib/picodux"
+import { connect } from "oaki"
 import button from "../components/button"
 
 const mapStateToProps = () => ({
