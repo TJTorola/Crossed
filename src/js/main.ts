@@ -1,4 +1,4 @@
-import { createApp } from "./lib/picodux"
+import { createApp } from "oaki"
 import reducer from "./store/reducer"
 import logger from "./store/introspectors/logger"
 import view from "./app"

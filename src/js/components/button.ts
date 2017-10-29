@@ -1,4 +1,4 @@
-import { h } from "picodom/src"
+import { h } from "oaki"
 
 export default ({ onClick, disabled, body }) =>
   h(

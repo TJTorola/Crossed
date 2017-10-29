@@ -1,7 +1,6 @@
-import { h } from "picodom/src"
+import { h, connect } from "oaki"
 import incramentButton from "./incramentButton"
 import decramentButton from "./decramentButton"
-import { connect } from "../lib/picodux"
 
 const App = ({ incrament, decrament, value }) =>
   h("main", {}, [h("h1", {}, value), decramentButton(), incramentButton()])
