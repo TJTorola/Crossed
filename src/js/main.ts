@@ -8,11 +8,25 @@ export default mountID => {
     throw new Error(`No element was found for the given mountID: ${mountID}`)
   }
 
+  const initialState =
+    localStorage.getItem("state") !== null
+      ? JSON.parse(localStorage.getItem("state"))
+      : undefined
+
+  const storeState = ({ nextState }) =>
+    localStorage.setItem("state", JSON.stringify(nextState))
+
+  window.clearAndReload = () => {
+    localStorage.removeItem("state")
+    location.reload()
+  }
+
   createApp(
     {
       reducer,
       view,
-      introspectors: [console.log]
+      introspectors: [console.log, storeState],
+      initialState
     },
     mountElement
   )

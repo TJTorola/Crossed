@@ -4,7 +4,7 @@ import dux from "./dux"
 let store
 
 export const createApp: CreateApp = (
-  { reducer, middleware, responders, introspectors, view },
+  { reducer, middleware, responders, introspectors, view, initialState },
   mountNode
 ) => {
   store = dux.createStore(
@@ -12,7 +12,8 @@ export const createApp: CreateApp = (
       reducer,
       middleware,
       responders,
-      introspectors
+      introspectors,
+      initialState
     },
     mountNode
   )
