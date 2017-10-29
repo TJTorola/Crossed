@@ -16,6 +16,11 @@ export default mountID => {
   const storeState = ({ nextState }) =>
     localStorage.setItem("state", JSON.stringify(nextState))
 
+  window.clearAndReload = () => {
+    localStorage.removeItem("state")
+    location.reload()
+  }
+
   createApp(
     {
       reducer,
