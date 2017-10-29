@@ -1,12 +1,19 @@
-import createApp from "./createApp"
-
-const NO_ELEMENT_FOUND = mountID => `
-No element was found for the given mountID: ${mountID}
-`
+import { createApp } from "./lib/picodux"
+import reducer from "./store/reducer"
+import view from "./components"
 
 export default mountID => {
   const mountElement = mountID && document.getElementById(mountID)
-  if (mountID && !mountElement) throw new Error(NO_ELEMENT_FOUND(mountID))
+  if (mountID && !mountElement) {
+    throw new Error(`No element was found for the given mountID: ${mountID}`)
+  }
 
-  createApp()
+  createApp(
+    {
+      reducer,
+      view,
+      introspectors: [console.log]
+    },
+    mountElement
+  )
 }
