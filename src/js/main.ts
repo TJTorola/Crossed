@@ -1,5 +1,6 @@
 import { createApp } from "./lib/picodux"
 import reducer from "./store/reducer"
+import logger from "./store/introspectors/logger"
 import view from "./app"
 
 export default mountID => {
@@ -25,7 +26,7 @@ export default mountID => {
     {
       reducer,
       view,
-      introspectors: [console.log, storeState],
+      introspectors: [logger, storeState],
       initialState
     },
     mountElement
