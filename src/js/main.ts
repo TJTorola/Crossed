@@ -1,6 +1,6 @@
 import { createApp } from "./lib/picodux"
 import reducer from "./store/reducer"
-import view from "./components"
+import view from "./app"
 
 export default mountID => {
   const mountElement = mountID && document.getElementById(mountID)
