@@ -8,11 +8,14 @@ export default mountID => {
     throw new Error(`No element was found for the given mountID: ${mountID}`)
   }
 
+  const initialState = localStorage.getItem("state") || undefined
+
   createApp(
     {
       reducer,
       view,
-      introspectors: [console.log]
+      introspectors: [console.log],
+      initialState
     },
     mountElement
   )
